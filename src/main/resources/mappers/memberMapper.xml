@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.js.testpj.member.MemberMapper">
+
+	<!-- 회원가입 -->
+	<insert id="register" parameterType="com.js.testpj.member.Member">
+		INSERT INTO test1.custom_user
+		(custom_user_seq, custom_user_name, custom_user_nick, custom_user_email,
+		custom_user_pswd, custom_user_birth, custom_user_phone,
+		custom_user_address, custom_user_auth, custom_user_del_yn,
+		custom_user_reg_date, custom_user_mod_date)
+		VALUES(NEXTVAL(custom_user_seq), #{custom_user_name}, #{custom_user_nick}, #{custom_user_email},
+		#{custom_user_pswd}, #{custom_user_birth}, #{custom_user_phone}, #{custom_user_address}, #{custom_user_auth}, #{custom_user_del_yn},
+		now(), now())
+	</insert>
+
+
+
+</mapper>
