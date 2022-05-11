@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.js.testpj.member.MemberMapper">
 
+	<!-- //////////register.jsp/////////// -->
 	<!-- 회원가입 -->
 	<insert id="register" parameterType="com.js.testpj.member.Member">
 		INSERT INTO test1.custom_user
@@ -23,6 +24,13 @@
 	<select id="mailCheck" parameterType="String" resultType="int">
 		 select count(*) from test1.custom_user where custom_user_email = #{custom_user_email};
 	</select>
+
+
+
+
+
+	<!-- ////////// login.jsp /////////// -->
+	
 
 
 

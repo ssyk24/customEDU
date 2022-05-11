@@ -34,7 +34,7 @@
     <script src="resources/js/sb-admin-2.min.js"></script>
     
     <!-- 유효성 검사 -->
-    <script type="text/javascript" src="resources/js/check.js"></script>
+    <script type="text/javascript" src="resources/js/registerCheck.js"></script>
     
     
 </head>

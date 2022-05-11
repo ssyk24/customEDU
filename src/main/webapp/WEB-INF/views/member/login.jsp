@@ -43,7 +43,8 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    
+                                    <form class="user" action="login.do" method="post">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
@@ -71,7 +72,9 @@
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
                                     </form>
+                                    
                                     <hr>
+                                    
                                     <div class="text-center">
                                         <a class="small" href="forgetPswd.go">Forgot Password?</a>
                                     </div>
