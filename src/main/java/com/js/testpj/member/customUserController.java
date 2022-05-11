@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class customUserController {
@@ -33,6 +35,22 @@ public class customUserController {
 	
 	
 	
+		// 닉네임 중복 체크 컨트롤러
+		@RequestMapping(value = "/register.nicknameCheck", method = RequestMethod.GET)
+		@ResponseBody
+			public int nicknameCheck(@RequestParam("custom_user_nick") String custom_user_nick) {
+
+				return mDAO.nicknameCheck(custom_user_nick);
+		}
+		
+		
+		// email 중복 체크 컨트롤러
+		@RequestMapping(value = "/register.emailCheck", method = RequestMethod.GET)
+		@ResponseBody
+		public int emailCheck(@RequestParam("custom_user_email") String custom_user_email) {
+			
+			return mDAO.emailCheck(custom_user_email);
+		}
 	
 	
 	

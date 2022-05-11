@@ -2,8 +2,10 @@ package com.js.testpj.member;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,9 +27,15 @@ public class MemberDAO {
 			String custom_user_address = request.getParameter("custom_user_address");
 			String custom_user_phone = request.getParameter("custom_user_phone");
 			String custom_user_pswd = request.getParameter("custom_user_pswd");
-			String custom_user_pswd_check = request.getParameter("custom_user_pswd_check");
-			// Date는 sql에 sysdate
 			
+			// 전화번호 하이픈('-') 제거
+			custom_user_phone = custom_user_phone.replaceAll("-", "");
+			
+			// 비밀번호 암호화
+			BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+			String securePassword = pwEncoder.encode(custom_user_pswd);
+			
+			// 받아오는 값 확인 용
 			System.out.println(custom_user_name);
 			System.out.println(custom_user_birth);
 			System.out.println(custom_user_nick);
@@ -35,8 +43,7 @@ public class MemberDAO {
 			System.out.println(custom_user_address);
 			System.out.println(custom_user_phone);
 			System.out.println(custom_user_pswd);
-			System.out.println(custom_user_pswd_check);
-			
+			System.out.println(securePassword);
 			
 			m.setCustom_user_name(custom_user_name);
 			m.setCustom_user_birth(custom_user_birth);
@@ -44,7 +51,8 @@ public class MemberDAO {
 			m.setCustom_user_email(custom_user_email);
 			m.setCustom_user_address(custom_user_address);
 			m.setCustom_user_phone(custom_user_phone);
-			m.setCustom_user_name(custom_user_pswd);
+//			m.setCustom_user_pswd(custom_user_pswd);
+			m.setCustom_user_pswd(securePassword);
 			
 			if (ss.getMapper(MemberMapper.class).register(m) == 1) {
 				System.out.println("가입 성공");
@@ -57,6 +65,23 @@ public class MemberDAO {
 			System.out.println("오류 발생");
 		}
 		
+	}
+
+	
+	
+	public int nicknameCheck(String custom_user_nick) {
+		MemberMapper MemberDAO = ss.getMapper(MemberMapper.class);
+
+		return MemberDAO.nickCheck(custom_user_nick);
+	}
+
+	
+	
+	
+	public int emailCheck(String custom_user_email) {
+		MemberMapper MemberDAO = ss.getMapper(MemberMapper.class);
+
+		return MemberDAO.mailCheck(custom_user_email);
 	}
 
 }

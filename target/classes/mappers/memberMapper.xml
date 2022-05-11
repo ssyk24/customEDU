@@ -10,9 +10,19 @@
 		custom_user_address, custom_user_auth, custom_user_del_yn,
 		custom_user_reg_date, custom_user_mod_date)
 		VALUES(NEXTVAL(custom_user_seq), #{custom_user_name}, #{custom_user_nick}, #{custom_user_email},
-		#{custom_user_pswd}, #{custom_user_birth}, #{custom_user_phone}, #{custom_user_address}, #{custom_user_auth}, #{custom_user_del_yn},
+		#{custom_user_pswd}, #{custom_user_birth}, #{custom_user_phone}, #{custom_user_address}, 'u', 'n',
 		now(), now())
 	</insert>
+	
+	<!-- 닉네임 중복 검사 -->
+	<select id="nickCheck" parameterType="String" resultType="int">
+		 select count(*) from test1.custom_user where custom_user_nick = #{custom_user_name};
+	</select>
+
+	<!-- 이메일 중복 검사 -->
+	<select id="mailCheck" parameterType="String" resultType="int">
+		 select count(*) from test1.custom_user where custom_user_email = #{custom_user_email};
+	</select>
 
 
 

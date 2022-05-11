@@ -36,6 +36,7 @@
     <!-- 유효성 검사 -->
     <script type="text/javascript" src="resources/js/check.js"></script>
     
+    
 </head>
 
 <body class="bg-gradient-primary">
@@ -62,39 +63,47 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="inputName" name="custom_user_name"
                                             placeholder="Name">
+                                     <span class="ps-1" id="name_check" style="color: green;"></span>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="inputBirth" name="custom_user_birth"
-                                            placeholder="Birth ex)19990101">
+                                            placeholder="Birth ex)19990101" maxlength="8">
+                                        <span class="ps-1" id="birth_check" style="color: green;"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="inputNickname" name="custom_user_nick"
-                                        placeholder="Nickname">
+                                        placeholder="Nickname(30자 이하)" maxlength="30">
+                                    <span class="ps-1" id="nickname_check" style="color: green;"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="inputEmail" name="custom_user_email"
                                         placeholder="Email Address">
+                                     <span class="ps-1" id="email_check" style="color: green;"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="inputAddress" name="custom_user_address"
                                         placeholder="Address">
+                                    <span class="ps-1" id="address_check" style="color: green;"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="tel" class="form-control form-control-user" id="inputPhone" name="custom_user_phone"
-                                        placeholder="Phone ex)010-0000-0000">
+                                        placeholder="Phone ex)010-0000-0000" maxlength="13">
+                                    <span class="ps-1" id="phone_check" style="color: green;"></span>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
+                                        <input type="password" class="form-control form-control-user" maxlength="20"
                                             id="inputPassword" name="custom_user_pswd" placeholder="Password">
+                                        <span class="ps-1" id="password_check" style="color: green;"></span>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
                                             id="inputPWcheck" name="custom_user_pswd_check" placeholder="Repeat Password">
+                                   		<span class="ps-1" id="pwCheck_check" style="color: green;"></span>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-user btn-block" > <!-- onclick="return vaildCheck();" -->
+                                <button class="btn btn-primary btn-user btn-block" id="reg_account">  
                                     Register Account
                                 </button>
                             </form>
