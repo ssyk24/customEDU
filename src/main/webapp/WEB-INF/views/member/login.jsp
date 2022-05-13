@@ -21,7 +21,8 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-
+    
+    
 </head>
 
 <body class="bg-gradient-primary">
@@ -46,24 +47,25 @@
                                     
                                     <form class="user" action="login.do" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                            <input type="email" class="form-control form-control-user" name="custom_user_email"
+                                                id="userEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
+                                             <span class="ps-1" id="email_check" style="color: green;"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" name="custom_user_pswd"
+                                                id="userPassword" placeholder="Password">
+                                             <span class="ps-1" id="pw_check" style="color: green;"></span>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                        <button id="login_btn" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -102,6 +104,48 @@
 
     <!-- Custom scripts for all pages-->
     <script src="resources/js/sb-admin-2.min.js"></script>
+    
+     <script type="text/javascript">
+    
+    $(function() {
+    	
+    	let userEmail = document.getElementById('userEmail');
+    	let userPassword = document.getElementById('userPassword');
+    	
+    $("#userEmail").focusout(function() {
+    	// console.log(email.value);
+    	if(userEmail.value == ""){
+    		$('#email_check').text('이메일을 입력해주세요.');
+    		$('#email_check').css('color', 'red');
+    		$("#login_btn").attr("disabled", true);
+   		} 
+    });
+    
+    $("#userEmail").keyup(function() {
+    	$('#email_check').text('');
+    	$("#login_btn").attr("disabled", false);
+    });
+    
+    
+		
+    $("#userPassword").focusout(function() {
+    	if(userPassword.value == ""){
+    		$('#pw_check').text('패스워드를 입력해주세요.');
+    		$('#pw_check').css('color', 'red');
+    		$("#login_btn").attr("disabled", true);
+   		} 
+    }); 
+    
+    $("#userPassword").keyup(function() {
+    	$('#pw_check').text('');
+    	$("#login_btn").attr("disabled", false);
+    });
+    
+    
+    
+    });
+    
+    </script>
 
 </body>
 

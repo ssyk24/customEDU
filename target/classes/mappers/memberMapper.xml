@@ -30,7 +30,11 @@
 
 
 	<!-- ////////// login.jsp /////////// -->
-	
+	<!-- 로그인 -->
+	<select id="loginUser" resultType="com.js.testpj.member.Member">
+			select * from test1.custom_user
+			where custom_user_email = #{custom_user_email}
+	</select>
 
 
 

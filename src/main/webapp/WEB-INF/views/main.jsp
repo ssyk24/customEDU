@@ -167,8 +167,8 @@
                             </div>
                         </li>
 
-
-						<%-- <c:if test=""></c:if> --%>
+						<!-- 로그인 안 되었을 때(guest) -->
+						<c:if test="${sessionScope.loginMember == null}">
 						<li class="nav-item" >
 						  <a class="nav-link " href="login.go" id="userDropdown" style="border-radius:30px; height: 50px;"
                                  aria-haspopup="true" aria-expanded="false">
@@ -176,18 +176,20 @@
                                 <img class="img-profile rounded-circle" src="resources/img/undraw_profile.svg">
                           </a>
 						 </li>
+						 </c:if>
 
-						<%-- <c:if test="">
+
+						<!-- 로그인 했을 때 -->
+						<c:if test="${sessionScope.loginMember != null}">
 						
-                        <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">User Name</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size: 11pt;">${sessionScope.loginMember.custom_user_nick}</span>
                                 <img class="img-profile rounded-circle"
                                     src="resources/img/undraw_profile.svg">
                             </a>
-                            <!-- Dropdown - User Information -->
+                            
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
@@ -195,14 +197,14 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="logout.do">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </div>
                         </li>
                         
-                        </c:if> --%>
+                        </c:if>
 
                     </ul>
 

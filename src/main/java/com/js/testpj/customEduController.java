@@ -2,6 +2,7 @@ package com.js.testpj;
 
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,11 +18,11 @@ public class customEduController {
 	}
 	
 	
+	// 로고를 클릭하면 메인 페이지로
 	@RequestMapping(value = "/main.go", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
 
 		return home(request);
-		// 좌측 상단 로고를 클릭하면 메인 페이지로
 	}
 	
 	

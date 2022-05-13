@@ -9,5 +9,8 @@ public interface MemberMapper {
 	int mailCheck(String custom_user_email);
 
 	
+	Member loginUser(Member m);
+
+	
 	
 }

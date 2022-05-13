@@ -60,7 +60,7 @@ public class customUserController {
 		
 	
 	
-	
+	// 로그인 페이지로
 	@RequestMapping(value = "/login.go", method = RequestMethod.GET)
 	public String loginPage(HttpServletRequest request) {
 		
@@ -69,17 +69,26 @@ public class customUserController {
 	
 	
 	
+	// 로그인하기
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String doingLogin(Member m, HttpSession httpsession, HttpServletRequest request, HttpServletResponse response) {
+	public String doingLogin(Member m, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
 		
-		/* 여기서부터(로그인 기능) */
+		mDAO.userLogin(m, httpSession, response, request);
+		mDAO.loginCheck(request);
 		
 		request.setAttribute("contentPage", "home.jsp");
 		return "main";
 	}
 	
 	
+		// 로그아웃
+		@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+		public String logout(Member m, HttpServletRequest request) {
+			mDAO.logout(request);
+			mDAO.loginCheck(request);
+			request.setAttribute("contentPage", "home.jsp");
+			return "main";
+		}
 	
 	
 	
