@@ -19,16 +19,17 @@ public class customUserController {
 	
 	
 	
-	
 	@RequestMapping(value = "/register.go", method = RequestMethod.GET)
-	public String registerPage(HttpServletRequest request) {
-
+	public String registerPage(HttpServletRequest request, HttpSession session) {
+		
+		mDAO.loginCheck(request, session);
+		
 		return "member/register";
 	}
 	
 	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
-	public String registerInsert(HttpServletRequest request, Member m) {
+	public String registerInsert(HttpServletRequest request, Member m, HttpSession session) {
 		
 		mDAO.registerMember(m, request);
 		
@@ -62,7 +63,9 @@ public class customUserController {
 	
 	// 로그인 페이지로
 	@RequestMapping(value = "/login.go", method = RequestMethod.GET)
-	public String loginPage(HttpServletRequest request) {
+	public String loginPage(HttpServletRequest request, HttpSession session) {
+		
+		mDAO.loginCheck(request, session);
 		
 		return "member/login";
 	}
@@ -71,21 +74,20 @@ public class customUserController {
 	
 	// 로그인하기
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String doingLogin(Member m, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
+	public String doingLogin(Member m, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
-		mDAO.userLogin(m, httpSession, response, request);
-		mDAO.loginCheck(request);
+		mDAO.userLogin(m, session, response, request);
+		mDAO.loginCheck(request, session);
 		
-		request.setAttribute("contentPage", "home.jsp");
 		return "main";
 	}
 	
 	
 		// 로그아웃
 		@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-		public String logout(Member m, HttpServletRequest request) {
+		public String logout(Member m, HttpServletRequest request, HttpSession session) {
 			mDAO.logout(request);
-			mDAO.loginCheck(request);
+			mDAO.loginCheck(request, session);
 			request.setAttribute("contentPage", "home.jsp");
 			return "main";
 		}

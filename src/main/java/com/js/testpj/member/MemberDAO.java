@@ -1,5 +1,6 @@
 package com.js.testpj.member;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -88,121 +89,90 @@ public class MemberDAO {
 	
 
 	// 로그인 기능
-	public void userLogin(Member m, HttpSession httpSession, HttpServletResponse response, HttpServletRequest request) {
+	public void userLogin(Member m, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		
+		session = request.getSession();
 		
 		Member dbMember = ss.getMapper(MemberMapper.class).loginUser(m);
 		
-		System.out.println(dbMember.getCustom_user_email());
-		
+		// pw 암호화 기능
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
+		// input에 입력한 pw값
 		String custom_user_pswd = request.getParameter("custom_user_pswd");
-        
-//	    if(pwEncoder.matches(custom_user_pswd, dbMember.getCustom_user_pswd())) {
-//	    	httpSession.setAttribute("id", dbMember.getCustom_user_email());
-//	    	httpSession.setAttribute("name", dbMember.getCustom_user_name());
-//	    	httpSession.setAttribute("nickname", dbMember.getCustom_user_nick());
-//	            
-//	        out.println("<script>alert('반갑습니다.'); location.href='/';</script>");
-//	        out.flush();
-//	    } else {
-//	        out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); location.href='/app/login/index';</script>");
-//	        out.flush();
-//	    }
-
-
+		// Remember Me 체크
+		String idRemember = request.getParameter("loginRemember");
+		
+		// 회원 정보가 없을 경우
+		if (dbMember == null) {
+			System.out.println("로그인 실패(eMail)");
+			request.setAttribute("contentPage", "member/login_failed.jsp");
+			request.setAttribute("result", "로그인 실패 <br><br> 이메일을 확인해주세요!");
+		};
+		
+		
+		// 회원 정보가 있을 경우
 		if (dbMember != null) {
-//			if (m.getCustom_user_pswd().equals(dbMember.getCustom_user_pswd())) {
+			
+			// 암호화된 패스워드 복원
 			if(pwEncoder.matches(custom_user_pswd, dbMember.getCustom_user_pswd())) {
-				request.getSession().setAttribute("loginMember", dbMember);
-				request.getSession().setMaxInactiveInterval(60 * 30);
+				
+				session.setAttribute("loginMember", dbMember);
+				session.setMaxInactiveInterval(60);
+				
+				// 자동 로그인 하지 않음
+				if (idRemember == null) {
+				System.out.println(idRemember); // null
+				System.out.println("자동 로그인 X");
+				
+				} else { // 자동 로그인 체크
+					System.out.println(idRemember); // on
+					System.out.println("자동 로그인 V");
+					
+					//loginCookie라는 키로 세션아이디를 담아 쿠키를 생성합니다.
+				    Cookie loginCookie = new Cookie("loginCookie", session.getId());
+				    
+				    loginCookie.setPath("/testpj");//쿠키의 저장경로는 기본 uri 경로 홈페이지 시작uri
+				    loginCookie.setMaxAge(60*60*24*90);//초단위로 쿠키유지시간 설정 (90일)
+				    
+				    //쿠키는 클라이언트에 보낼떄 응답객체에 담아서 보냅니다.
+				    response.addCookie(loginCookie);//response에 쿠키를담아 클라이언트에게 보냅니다.
+				    
+				}
+				
+//				session.setAttribute("loginMember", dbMember);
+//				session.setMaxInactiveInterval(60);
+				
+				System.out.println(dbMember.getCustom_user_email());
 				System.out.println("로그인 성공");
+				request.setAttribute("contentPage", "member/login_successed.jsp");
+				request.setAttribute("result", "Login Success!");
+				
 			} else {
-				System.out.println("패스워드가 올바르지 않습니다.");
+				System.out.println("로그인 실패(PW)");
+				request.setAttribute("contentPage", "member/login_failed.jsp");
+				request.setAttribute("result", "로그인 실패 <br><br> 패스워드를 확인해주세요!");
 			}
-		} else {
-				System.out.println("이메일을 확인해주세요");
+			
 		}
 		
 		
-		
-		
-		
-		// 로그인 결과값
-
-		// 회원 정보가 없을 시
-//		if (dbMember == null) {
-//			result = 0;
-//			return result;
-//		}
-	
-//		System.out.println("UserLoginService // 로그인 객체 확인 MemberDAO : " + m);
-//		String user_email = m.getCustom_user_email();
-//		String user_pw = m.getCustom_user_pswd();
-//
-//		  
-//		Member dbMember = ss.getMapper(MemberMapper.class).loginUser(user_email);
-//
-//		
-//		// 로그인 결과값
-//		int result = 0;
-//
-//		// 회원 정보가 없을 시
-//		if (dbMember == null) {
-//			result = 0;
-//			return result;
-//		}
-//
-//
-//		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
-//		if (dbMember != null) {
-//			
-//			// 아이디,비번,스토어id가 모두 같은경우
-//			System.out.println("1단계");
-//			if (dbMember.getCustom_user_email().equals(user_email) && dbMember.getCustom_user_pswd().equals(user_pw)) {
-//				System.out.println("2단계");
-//				
-//				// 쿠키 체크 검사
-//				Cookie cookie = new Cookie("user_check", user_email);
-//				if (user_check.equals("true")) {
-//					response.addCookie(cookie);
-//					System.out.println("3단계-쿠키 아이디저장 O");
-//					  // 쿠키 확인
-//					  System.out.println("Cookie : " + cookie);
-//				} else {
-//					System.out.println("3단계-쿠키 아이디저장 X");
-//					cookie.setMaxAge(0);
-//					response.addCookie(cookie);
-//				}
-//
-//				System.out.println("3단계-로그인단계");
-//				// 세션 저장하기 전에 비밀번호 가리기
-//				m.setM_pw("");
-//
-//				// 세션에 vo 객체 저장
-//				request.getSession().setAttribute("loginMember", dbMember);
-//				request.getSession().setMaxInactiveInterval(60 * 30);
-//
-//				result = 1;
-//
-//				// 중복로그인 end
-//			} else {
-//				System.out.println("로그인 정보를 정확히 입력해주세요.");
-//				result = -4;
-//				return result;
-//			}
-//		
-//	
-//
-//		}
-//		return result;
 	}
+	
+	
+	/* 않이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅇ해ㅑ 자동 로그인이 안 돼ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ  */
+	
 
-	public boolean loginCheck(HttpServletRequest request) {
-
-		Member m = (Member) request.getSession().getAttribute("loginMember");
+	public boolean loginCheck(HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		session.setMaxInactiveInterval(60 * 10);
+		
+		Member m = (Member) session.getAttribute("loginMember");
 		if (m != null) {
+			System.out.println("로그인 세션 O");
 			return true;
 		} else {
+			System.out.println("로그인 세션 X");
 			return false;
 		}
 		

@@ -13,12 +13,15 @@
 
 <body id="page-top">
 
-		<span class="d-flex align-items-center justify-content-center container">
-                <div class=" mx-3" style="text-align: center;">
-                <h1 style="font-weight: 1000; margin-top:200px; color: navy;">CUSTOMEDU</h1> <br>
-        </span>
-        
-        
+	<script type="text/javascript">
+	$(function() {
+		
+		alert("로그인 성공!");
+		
+		location.href="main.go";
+
+	});
+	</script>
 
 </body>
 

@@ -14,11 +14,8 @@
 <body id="page-top">
 
 		<span class="d-flex align-items-center justify-content-center container">
-                <div class=" mx-3" style="text-align: center;">
-                <h1 style="font-weight: 1000; margin-top:200px; color: navy;">CUSTOMEDU</h1> <br>
+                <div class=" mx-3"><h2 style="font-weight: 1000; margin-top:200px; color: navy; text-align: center;">${result}</h2></div>
         </span>
-        
-        
 
 </body>
 

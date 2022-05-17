@@ -11,8 +11,8 @@ public class Member {
 	private String custom_user_address;
 	private String custom_user_phone;
 	private String custom_user_pswd;
-	private char custom_user_auth;
-	private char custom_user_del_yn;
+	private String custom_user_auth;
+	private String custom_user_del_yn;
 	private Date custom_user_reg_date;
 	private Date custom_user_mod_date;
 	
@@ -23,8 +23,8 @@ public class Member {
 
 
 	public Member(String custom_user_name, String custom_user_birth, String custom_user_nick, String custom_user_email,
-			String custom_user_address, String custom_user_phone, String custom_user_pswd, char custom_user_auth,
-			char custom_user_del_yn, Date custom_user_reg_date, Date custom_user_mod_date) {
+			String custom_user_address, String custom_user_phone, String custom_user_pswd, String custom_user_auth,
+			String custom_user_del_yn, Date custom_user_reg_date, Date custom_user_mod_date) {
 		super();
 		this.custom_user_name = custom_user_name;
 		this.custom_user_birth = custom_user_birth;
@@ -110,22 +110,22 @@ public class Member {
 	}
 
 
-	public char getCustom_user_auth() {
+	public String getCustom_user_auth() {
 		return custom_user_auth;
 	}
 
 
-	public void setCustom_user_auth(char custom_user_auth) {
+	public void setCustom_user_auth(String custom_user_auth) {
 		this.custom_user_auth = custom_user_auth;
 	}
 
 
-	public char getCustom_user_del_yn() {
+	public String getCustom_user_del_yn() {
 		return custom_user_del_yn;
 	}
 
 
-	public void setCustom_user_del_yn(char custom_user_del_yn) {
+	public void setCustom_user_del_yn(String custom_user_del_yn) {
 		this.custom_user_del_yn = custom_user_del_yn;
 	}
 
@@ -148,10 +148,8 @@ public class Member {
 	public void setCustom_user_mod_date(Date custom_user_mod_date) {
 		this.custom_user_mod_date = custom_user_mod_date;
 	}
-	
-	
-	
-	
+
+
 	
 	
 }

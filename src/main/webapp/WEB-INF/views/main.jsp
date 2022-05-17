@@ -42,7 +42,7 @@
 		$('#userDropdown').mouseover(function() {
 			$('#userDropdown').css("background-color", "#4469d7");
 			$('#userDropdown').css("color", "white");
-			$('#guest').text("Log-in");
+			$('#guest').text("Login");
 		});
 
 		
@@ -69,7 +69,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="main.go">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="main.go" id="siteLogo">
                 <div class=" mx-3"><h4 style="font-weight: 1000;">CUSTOMEDU</h4></div>
             </a>
 
@@ -90,6 +90,25 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                    
+                    <c:choose>
+                    
+                    	<c:when test="${sessionScope.loginMember == null}">
+                    
+                        <h6 class="collapse-header">LOGIN SCREENS:</h6>
+                        <a class="collapse-item" href="login.go">Login</a>
+                        <a class="collapse-item" href="register.go">Register</a>
+                        <a class="collapse-item" href="forgetPswd.go">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">OTHER PAGES:</h6>
+                        <a class="collapse-item" href="board.go">Board</a>
+                        <a class="collapse-item" href="qna.go">Q&A</a>
+                        <div class="collapse-divider"></div>
+                        
+                    	</c:when>
+                    
+                    	<c:when test="${sessionScope.loginMember.custom_user_auth eq 'a'}">
+                    
                         <h6 class="collapse-header">LOGIN SCREENS:</h6>
                         <a class="collapse-item" href="login.go">Login</a>
                         <a class="collapse-item" href="register.go">Register</a>
@@ -101,6 +120,22 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">ADMIN PAGES:</h6>
                         <a class="collapse-item" href="manage.go">Member managment</a>
+                        
+                    	</c:when>
+                    
+                    	<c:when test="${sessionScope.loginMember.custom_user_auth eq 'u'}">
+                    
+                        <h6 class="collapse-header">LOGINED</h6>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">OTHER PAGES:</h6>
+                        <a class="collapse-item" href="board.go">Board</a>
+                        <a class="collapse-item" href="qna.go">Q&A</a>
+                        <div class="collapse-divider"></div>
+                        
+                    	</c:when>
+                    	
+                    </c:choose>
+                        
                     </div>
                 </div>
             </li>
@@ -183,11 +218,10 @@
 						<c:if test="${sessionScope.loginMember != null}">
 						
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" style="border-radius:30px; height: 50px; role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size: 11pt;">${sessionScope.loginMember.custom_user_nick}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="resources/img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-600 small" id="loginPage" style="font-size: 11pt;">${sessionScope.loginMember.custom_user_nick} 님</span>
+                                <img class="img-profile rounded-circle"  src="resources/img/undraw_profile.svg">
                             </a>
                             
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
