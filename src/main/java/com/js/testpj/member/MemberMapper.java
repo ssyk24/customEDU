@@ -11,6 +11,8 @@ public interface MemberMapper {
 	
 	Member loginUser(Member m);
 
+	Member myProfile(Member m);
+
 	
 	
 }

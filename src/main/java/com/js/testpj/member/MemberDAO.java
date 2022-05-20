@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 public class MemberDAO {
@@ -68,6 +69,7 @@ public class MemberDAO {
 		}
 
 	}
+	
 
 	public int nicknameCheck(String custom_user_nick) {
 		MemberMapper MemberDAO = ss.getMapper(MemberMapper.class);
@@ -102,13 +104,6 @@ public class MemberDAO {
 		// Remember Me 체크
 		String idRemember = request.getParameter("loginRemember");
 		
-		// 회원 정보가 없을 경우
-		if (dbMember == null) {
-			System.out.println("로그인 실패(eMail)");
-			request.setAttribute("contentPage", "member/login_failed.jsp");
-			request.setAttribute("result", "로그인 실패 <br><br> 이메일을 확인해주세요!");
-		};
-		
 		
 		// 회원 정보가 있을 경우
 		if (dbMember != null) {
@@ -116,37 +111,32 @@ public class MemberDAO {
 			// 암호화된 패스워드 복원
 			if(pwEncoder.matches(custom_user_pswd, dbMember.getCustom_user_pswd())) {
 				
-				session.setAttribute("loginMember", dbMember);
-				session.setMaxInactiveInterval(60);
-				
 				// 자동 로그인 하지 않음
 				if (idRemember == null) {
 				System.out.println(idRemember); // null
 				System.out.println("자동 로그인 X");
 				
-				} else { // 자동 로그인 체크
+				// 자동 로그인 체크
+				} else {
 					System.out.println(idRemember); // on
 					System.out.println("자동 로그인 V");
 					
 					//loginCookie라는 키로 세션아이디를 담아 쿠키를 생성합니다.
 				    Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				    
-				    loginCookie.setPath("/testpj");//쿠키의 저장경로는 기본 uri 경로 홈페이지 시작uri
-				    loginCookie.setMaxAge(60*60*24*90);//초단위로 쿠키유지시간 설정 (90일)
+				    loginCookie.setPath("/testpj"); //쿠키의 저장경로는 기본 uri 경로 홈페이지 시작uri
+				    loginCookie.setMaxAge(60*60*24*7); //쿠키유지시간 7일로 설정
 				    
 				    //쿠키는 클라이언트에 보낼떄 응답객체에 담아서 보냅니다.
 				    response.addCookie(loginCookie);//response에 쿠키를담아 클라이언트에게 보냅니다.
-				    
 				}
 				
-//				session.setAttribute("loginMember", dbMember);
-//				session.setMaxInactiveInterval(60);
+				session.setAttribute("loginMember", dbMember);
 				
 				System.out.println(dbMember.getCustom_user_email());
 				System.out.println("로그인 성공");
-				request.setAttribute("contentPage", "member/login_successed.jsp");
+				request.setAttribute("contentPage", "member/member_success.jsp");
 				request.setAttribute("result", "Login Success!");
-				
 			} else {
 				System.out.println("로그인 실패(PW)");
 				request.setAttribute("contentPage", "member/login_failed.jsp");
@@ -155,11 +145,16 @@ public class MemberDAO {
 			
 		}
 		
+		// 회원 정보가 없을 경우
+		if (dbMember == null) {
+			System.out.println("로그인 실패(eMail)");
+			request.setAttribute("contentPage", "member/login_failed.jsp");
+			request.setAttribute("result", "로그인 실패 <br><br> 이메일을 확인해주세요!");
+		};
+		
 		
 	}
 	
-	
-	/* 않이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅇ해ㅑ 자동 로그인이 안 돼ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ  */
 	
 
 	public boolean loginCheck(HttpServletRequest request, HttpSession session) {
@@ -168,6 +163,7 @@ public class MemberDAO {
 		session.setMaxInactiveInterval(60 * 10);
 		
 		Member m = (Member) session.getAttribute("loginMember");
+		
 		if (m != null) {
 			System.out.println("로그인 세션 O");
 			return true;
@@ -177,9 +173,29 @@ public class MemberDAO {
 		}
 		
 	}
+	
+	
+	
 
-	public void logout(HttpServletRequest req) {
-		req.getSession().setAttribute("loginMember", null);
+	public void logout(HttpServletRequest request,HttpServletResponse response) {
+		request.getSession().setAttribute("loginMember", null);
+
+		Cookie delCookie =  new Cookie("loginCookie", null);
+		delCookie.setMaxAge(0);
+		response.addCookie(delCookie);
+	}
+
+
+	public void letGoProfile(HttpServletRequest request, Member m) {
+
+		m.setCustom_user_seq(request.getParameter("custom_user_seq"));
+		
+//		System.out.println(m.getCustom_user_seq());
+		
+		Member user = ss.getMapper(MemberMapper.class).myProfile(m);
+		
+		request.setAttribute("user", user);
+		
 	}
 
 }

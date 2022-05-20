@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Member {
 
+	private String custom_user_seq;
 	private String custom_user_name;
 	private String custom_user_birth;
 	private String custom_user_nick;
@@ -22,10 +23,11 @@ public class Member {
 	}
 
 
-	public Member(String custom_user_name, String custom_user_birth, String custom_user_nick, String custom_user_email,
-			String custom_user_address, String custom_user_phone, String custom_user_pswd, String custom_user_auth,
-			String custom_user_del_yn, Date custom_user_reg_date, Date custom_user_mod_date) {
+	public Member(String custom_user_seq, String custom_user_name, String custom_user_birth, String custom_user_nick,
+			String custom_user_email, String custom_user_address, String custom_user_phone, String custom_user_pswd,
+			String custom_user_auth, String custom_user_del_yn, Date custom_user_reg_date, Date custom_user_mod_date) {
 		super();
+		this.custom_user_seq = custom_user_seq;
 		this.custom_user_name = custom_user_name;
 		this.custom_user_birth = custom_user_birth;
 		this.custom_user_nick = custom_user_nick;
@@ -37,6 +39,16 @@ public class Member {
 		this.custom_user_del_yn = custom_user_del_yn;
 		this.custom_user_reg_date = custom_user_reg_date;
 		this.custom_user_mod_date = custom_user_mod_date;
+	}
+
+
+	public String getCustom_user_seq() {
+		return custom_user_seq;
+	}
+
+
+	public void setCustom_user_seq(String custom_user_seq) {
+		this.custom_user_seq = custom_user_seq;
 	}
 
 
@@ -149,6 +161,8 @@ public class Member {
 		this.custom_user_mod_date = custom_user_mod_date;
 	}
 
+
+	
 
 	
 	

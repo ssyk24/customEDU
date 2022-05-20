@@ -59,6 +59,22 @@ public class customUserController {
 		
 		
 		
+		
+		
+		// 프로필 페이지로
+		@RequestMapping(value = "/profile.go", method = RequestMethod.GET)
+		public String profilePage(HttpServletRequest request, HttpSession session, Member m) {
+			
+			mDAO.loginCheck(request, session);
+			mDAO.letGoProfile(request, m);
+			
+			request.setAttribute("contentPage", "member/profile.jsp");
+			return "main";
+		}
+		
+		
+		
+		
 	
 	
 	// 로그인 페이지로
@@ -85,10 +101,10 @@ public class customUserController {
 	
 		// 로그아웃
 		@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-		public String logout(Member m, HttpServletRequest request, HttpSession session) {
-			mDAO.logout(request);
+		public String logout(Member m, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+			mDAO.logout(request,response);
 			mDAO.loginCheck(request, session);
-			request.setAttribute("contentPage", "home.jsp");
+			request.setAttribute("contentPage", "member/member_success.jsp");
 			return "main";
 		}
 	

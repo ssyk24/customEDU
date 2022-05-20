@@ -38,4 +38,15 @@
 
 
 
+
+
+	<!-- ////////// prifile.jsp /////////// -->
+	<!-- 프로필 표시 -->
+	<select id="myProfile" resultType="com.js.testpj.member.Member">
+			select * from test1.custom_user
+			where custom_user_seq = #{custom_user_seq}
+	</select>
+
+
+
 </mapper>

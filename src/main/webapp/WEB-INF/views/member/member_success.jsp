@@ -16,7 +16,7 @@
 	<script type="text/javascript">
 	$(function() {
 		
-		alert("로그인 성공!");
+		alert("Success!");
 		
 		location.href="main.go";
 

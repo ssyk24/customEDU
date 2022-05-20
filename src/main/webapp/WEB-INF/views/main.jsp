@@ -66,10 +66,10 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion " id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="main.go" id="siteLogo">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center " href="main.go" id="siteLogo">
                 <div class=" mx-3"><h4 style="font-weight: 1000;">CUSTOMEDU</h4></div>
             </a>
 
@@ -126,6 +126,8 @@
                     	<c:when test="${sessionScope.loginMember.custom_user_auth eq 'u'}">
                     
                         <h6 class="collapse-header">LOGINED</h6>
+                        <a class="collapse-item" href="profile.go?custom_user_seq=${sessionScope.loginMember.custom_user_seq}">Profile</a>
+                        <a class="collapse-item" href="logout.do">Logout</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">OTHER PAGES:</h6>
                         <a class="collapse-item" href="board.go">Board</a>
@@ -213,7 +215,7 @@
 						 </li>
 						 </c:if>
 
-
+<!--  -->
 						<!-- 로그인 했을 때 -->
 						<c:if test="${sessionScope.loginMember != null}">
 						
@@ -226,7 +228,7 @@
                             
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="profile.go?custom_user_seq=${sessionScope.loginMember.custom_user_seq}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
