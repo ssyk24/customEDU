@@ -48,5 +48,12 @@
 	</select>
 
 
+	<!-- 프로필 수정 -->
+	<update id="modify" parameterType="com.js.testpj.member.Member">
+		update test1.custom_user
+		set custom_user_name = #{custom_user_name}, custom_user_nick = #{custom_user_nick}, custom_user_phone = #{custom_user_phone}, custom_user_address = #{custom_user_address}, custom_user_mod_date = now()
+		where custom_user_seq = #{custom_user_seq}
+	</update>
+
 
 </mapper>

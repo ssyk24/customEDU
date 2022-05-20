@@ -13,6 +13,8 @@ public interface MemberMapper {
 
 	Member myProfile(Member m);
 
+	int modify(Member m);
+
 	
 	
 }

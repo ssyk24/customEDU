@@ -122,14 +122,14 @@ public class customUserController {
 		
 		
 		
-		// 정보 수정 페이지로
-		@RequestMapping(value = "/modify.do", method = RequestMethod.GET)
+		// 정보 수정
+		@RequestMapping(value = "/modify.do", method = RequestMethod.POST)
 		public String modifyDo(HttpServletRequest request, HttpSession session, Member m) {
 			
-			mDAO.loginCheck(request, session);
 			mDAO.modProfile(request, m);
+			mDAO.loginCheck(request, session);
 			
-			request.setAttribute("contentPage", "member/profile.jsp");
+			request.setAttribute("contentPage", "member/member_success.jsp");
 			return "main";
 		}
 		

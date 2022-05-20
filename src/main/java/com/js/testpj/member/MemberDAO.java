@@ -1,5 +1,9 @@
 package com.js.testpj.member;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +13,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 public class MemberDAO {
@@ -199,21 +202,59 @@ public class MemberDAO {
 	
 	// 프로필 정보 Select
 	public void letGoProfile(HttpServletRequest request, Member m) {
-
+			
 		m.setCustom_user_seq(request.getParameter("custom_user_seq"));
 		
 //		System.out.println(m.getCustom_user_seq());
 		
 		Member user = ss.getMapper(MemberMapper.class).myProfile(m);
 		
+		
 		request.setAttribute("user", user);
 		
+		
 	}
+	
+	
 
 
 	public void modProfile(HttpServletRequest request, Member m) {
 
-		
+		try {
+
+			// register.jsp에서 값 받아오기
+			String custom_user_seq = request.getParameter("custom_user_seq");
+			String custom_user_name = request.getParameter("custom_user_name");
+			String custom_user_nick = request.getParameter("custom_user_nick");
+			String custom_user_address = request.getParameter("custom_user_address");
+			String custom_user_phone = request.getParameter("custom_user_phone");
+
+			// 전화번호 하이픈('-') 제거
+			custom_user_phone = custom_user_phone.replaceAll("-", "");
+
+			// 받아오는 값 확인 용
+			System.out.println(custom_user_seq);
+			System.out.println(custom_user_name);
+			System.out.println(custom_user_nick);
+			System.out.println(custom_user_address);
+			System.out.println(custom_user_phone);
+
+			m.setCustom_user_seq(custom_user_seq);
+			m.setCustom_user_name(custom_user_name);
+			m.setCustom_user_nick(custom_user_nick);
+			m.setCustom_user_address(custom_user_address);
+			m.setCustom_user_phone(custom_user_phone);
+
+			if (ss.getMapper(MemberMapper.class).modify(m) == 1) {
+				System.out.println("수정 성공");
+			} else {
+				System.out.println("수정 실패");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("오류 발생");
+		}
 		
 	}
 
