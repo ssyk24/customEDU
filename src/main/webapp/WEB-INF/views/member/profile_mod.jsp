@@ -12,13 +12,9 @@
 
 <script type="text/javascript">
 
-	function goModPage() {
+	function doingModify() {
 		
-		location.href = "modify.go";
-		
-	};
-
-	function goDelPage() {
+		location.href = "modify.do";
 		
 	};
 
@@ -37,7 +33,9 @@
 	</ul>
 	<ul class="list-group list-group-horizontal-lg">
 		<li class="list-group-item" style="width: 150px;">Email</li>
-		<li class="list-group-item" style="width: 300px;">${user.custom_user_email}</li>
+		<li class="list-group-item" style="width: 300px;">${user.custom_user_email}
+		 <input class="form-control" type="text" placeholder="수정할 e-mail"> 
+		</li>
 	</ul>
 	<ul class="list-group list-group-horizontal-lg">
 		<li class="list-group-item" style="width: 150px;">Name</li>
@@ -61,8 +59,7 @@
 	</ul>
 	
 	<div class="btn" style="width: 450px;">
-	  <button id="mod_btn" type="button" class="btn btn-outline-primary" onclick="return goModPage();">수정</button>
-	  <button id="del_btn" type="button" class="btn btn-outline-dark"  onclick="">회원탈퇴</button>
+	  <button id="mod_btn" type="button" class="btn btn-outline-primary" onclick="return doingModify();">수정하기</button>
 	</div>
 	
 	</div>

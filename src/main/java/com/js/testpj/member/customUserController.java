@@ -55,22 +55,7 @@ public class customUserController {
 			return mDAO.emailCheck(custom_user_email);
 		}
 	
-	
-		
-		
-		
-		
-		
-		// 프로필 페이지로
-		@RequestMapping(value = "/profile.go", method = RequestMethod.GET)
-		public String profilePage(HttpServletRequest request, HttpSession session, Member m) {
-			
-			mDAO.loginCheck(request, session);
-			mDAO.letGoProfile(request, m);
-			
-			request.setAttribute("contentPage", "member/profile.jsp");
-			return "main";
-		}
+
 		
 		
 		
@@ -102,11 +87,52 @@ public class customUserController {
 		// 로그아웃
 		@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 		public String logout(Member m, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-			mDAO.logout(request,response);
+			mDAO.logout(request,response, session);
 			mDAO.loginCheck(request, session);
 			request.setAttribute("contentPage", "member/member_success.jsp");
 			return "main";
 		}
+		
+		
+		
+	
+		
+		// 프로필 페이지로
+		@RequestMapping(value = "/profile.go", method = RequestMethod.GET)
+		public String profilePage(HttpServletRequest request, HttpSession session, Member m) {
+			
+			mDAO.loginCheck(request, session);
+			mDAO.letGoProfile(request, m);
+			
+			request.setAttribute("contentPage", "member/profile.jsp");
+			return "main";
+		}
+
+		
+		// 정보 수정 페이지로
+		@RequestMapping(value = "/modify.go", method = RequestMethod.GET)
+		public String modifyPage(HttpServletRequest request, HttpSession session, Member m) {
+			
+			mDAO.loginCheck(request, session);
+			mDAO.letGoProfile(request, m);
+			
+			request.setAttribute("contentPage", "member/profile_mod.jsp");
+			return "main";
+		}
+		
+		
+		
+		// 정보 수정 페이지로
+		@RequestMapping(value = "/modify.do", method = RequestMethod.GET)
+		public String modifyDo(HttpServletRequest request, HttpSession session, Member m) {
+			
+			mDAO.loginCheck(request, session);
+			mDAO.modProfile(request, m);
+			
+			request.setAttribute("contentPage", "member/profile.jsp");
+			return "main";
+		}
+		
 	
 	
 	

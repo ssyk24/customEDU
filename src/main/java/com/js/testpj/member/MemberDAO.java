@@ -156,7 +156,13 @@ public class MemberDAO {
 	}
 	
 	
-
+	
+	
+	
+	
+	
+	
+	// 로그인 체크
 	public boolean loginCheck(HttpServletRequest request, HttpSession session) {
 		
 		session = request.getSession();
@@ -173,19 +179,25 @@ public class MemberDAO {
 		}
 		
 	}
-	
-	
-	
 
-	public void logout(HttpServletRequest request,HttpServletResponse response) {
-		request.getSession().setAttribute("loginMember", null);
+
+	
+	
+	
+	
+	// 로그아웃 - 세샨, 쿠키 삭제
+	public void logout(HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		session.setAttribute("loginMember", null);
 
 		Cookie delCookie =  new Cookie("loginCookie", null);
 		delCookie.setMaxAge(0);
 		response.addCookie(delCookie);
 	}
 
-
+	
+	
+	
+	// 프로필 정보 Select
 	public void letGoProfile(HttpServletRequest request, Member m) {
 
 		m.setCustom_user_seq(request.getParameter("custom_user_seq"));
@@ -195,6 +207,13 @@ public class MemberDAO {
 		Member user = ss.getMapper(MemberMapper.class).myProfile(m);
 		
 		request.setAttribute("user", user);
+		
+	}
+
+
+	public void modProfile(HttpServletRequest request, Member m) {
+
+		
 		
 	}
 

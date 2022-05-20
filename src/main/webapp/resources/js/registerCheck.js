@@ -59,7 +59,7 @@ $("#inputEmail").focusout(function() {
 		url : 'register.emailCheck?custom_user_email='+ userEmail.value,
 		type : 'get',
 		success : function(data) {
-			console.log("1 = 중복o / 0 = 중복x : "+ data);							
+			console.log("1 = 중복o / 0 = 중복x : "+ data);					
 			
 			if (data >= 1) {
 					// 1 : 이메일이 중복되는 문구
