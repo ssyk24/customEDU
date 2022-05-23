@@ -21,7 +21,11 @@
 		
 	};
 
-	function goDelPage() {
+	function doDelete() {
+		
+		var seq = document.getElementById("paramSeq").value;
+		
+		location.href = "delete.member?custom_user_seq=" + seq;
 		
 	};
 
@@ -75,14 +79,18 @@
 		</li>
 	</ul>
 	
-	<c:if test="${sessionScope.loginMember != null}">
+	<c:if test="${sessionScope.loginMember == null}">
 	<input type="hidden" id="paramSeq" name="custom_user_seq" value="${param.custom_user_seq}">
-	<div class="btn" style="width: 450px;">
-	  <button id="mod_btn" type="button" class="btn btn-outline-primary" onclick="return goModPage();">수정</button>
-	  <button id="del_btn" type="button" class="btn btn-outline-dark"  onclick="">회원탈퇴</button>
-	  <!-- 탈퇴 기능 만들기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-	</div>
+	<div class="btn" style="width: 450px; text-align: center;"> 로그인 세션이 만료 되었습니다. </div>
+	</c:if>
 	
+	
+	<c:if test="${sessionScope.loginMember != null}">
+	<div class="btn row" style="width: 450px;">
+	  <button id="mod_btn" type="button" class="btn btn-outline-primary" onclick="return goModPage();">수정</button>
+	  <button id="del_btn" type="button" class="btn btn-outline-dark mx-5"  onclick="return doDelete();">회원탈퇴</button>
+	</div>
+	<input type="hidden" id="paramSeq" name="custom_user_seq" value="${param.custom_user_seq}">
 	</c:if>
 	
 	</div>

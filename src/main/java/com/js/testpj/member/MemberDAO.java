@@ -1,8 +1,5 @@
 package com.js.testpj.member;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -89,7 +86,16 @@ public class MemberDAO {
 	
 	
 	
-	
+		
+//		String delCheck = ss.getMapper(MemberMapper.class).checkingDelete(m);
+//	
+//		if (delCheck == "y") {
+//			System.out.println(delCheck);
+//	
+//			System.out.println("탈퇴된 회원");
+//			request.setAttribute("contentPage", "member/login_failed.jsp");
+//			request.setAttribute("result", "로그인 실패 <br><br> 이미 탈퇴된 회원입니다.");
+//		}
 	
 	
 
@@ -107,10 +113,8 @@ public class MemberDAO {
 		// Remember Me 체크
 		String idRemember = request.getParameter("loginRemember");
 		
-		
 		// 회원 정보가 있을 경우
 		if (dbMember != null) {
-			
 			// 암호화된 패스워드 복원
 			if(pwEncoder.matches(custom_user_pswd, dbMember.getCustom_user_pswd())) {
 				
@@ -119,8 +123,8 @@ public class MemberDAO {
 				System.out.println(idRemember); // null
 				System.out.println("자동 로그인 X");
 				
-				// 자동 로그인 체크
 				} else {
+					// 자동 로그인 체크
 					System.out.println(idRemember); // on
 					System.out.println("자동 로그인 V");
 					
@@ -140,22 +144,21 @@ public class MemberDAO {
 				System.out.println("로그인 성공");
 				request.setAttribute("contentPage", "member/member_success.jsp");
 				request.setAttribute("result", "Login Success!");
+				
 			} else {
 				System.out.println("로그인 실패(PW)");
 				request.setAttribute("contentPage", "member/login_failed.jsp");
 				request.setAttribute("result", "로그인 실패 <br><br> 패스워드를 확인해주세요!");
 			}
 			
-		}
-		
-		// 회원 정보가 없을 경우
-		if (dbMember == null) {
+		} else { 
+			// 회원 정보가 없을 경우
 			System.out.println("로그인 실패(eMail)");
 			request.setAttribute("contentPage", "member/login_failed.jsp");
 			request.setAttribute("result", "로그인 실패 <br><br> 이메일을 확인해주세요!");
-		};
+		}
 		
-		
+
 	}
 	
 	
@@ -220,8 +223,6 @@ public class MemberDAO {
 
 	public void modProfile(HttpServletRequest request, Member m) {
 
-		try {
-
 			// register.jsp에서 값 받아오기
 			String custom_user_seq = request.getParameter("custom_user_seq");
 			String custom_user_name = request.getParameter("custom_user_name");
@@ -245,17 +246,27 @@ public class MemberDAO {
 			m.setCustom_user_address(custom_user_address);
 			m.setCustom_user_phone(custom_user_phone);
 
-			if (ss.getMapper(MemberMapper.class).modify(m) == 1) {
+			if (ss.getMapper(MemberMapper.class).modifyProfile(m) == 1) {
 				System.out.println("수정 성공");
 			} else {
 				System.out.println("수정 실패");
 			}
+	}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("오류 발생");
+
+	public void delMember(HttpServletRequest request, Member m) {
+
+		String custom_user_seq = request.getParameter("custom_user_seq");
+
+		m.setCustom_user_seq(custom_user_seq);
+		
+		if (ss.getMapper(MemberMapper.class).deleteMem(m) == 1) {
+			System.out.println("회원 탈퇴");
+		} else {
+			System.out.println("탈퇴 실패");
 		}
 		
 	}
+
 
 }

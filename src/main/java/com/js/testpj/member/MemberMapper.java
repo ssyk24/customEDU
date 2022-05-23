@@ -13,7 +13,11 @@ public interface MemberMapper {
 
 	Member myProfile(Member m);
 
-	int modify(Member m);
+	int modifyProfile(Member m);
+
+	int deleteMem(Member m);
+
+	String checkingDelete(Member m);
 
 	
 	

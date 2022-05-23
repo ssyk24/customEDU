@@ -133,6 +133,20 @@ public class customUserController {
 			return "main";
 		}
 		
+		
+		
+		// 회원 탈퇴
+		@RequestMapping(value = "/delete.member", method = RequestMethod.GET)
+		public String deleteDo(HttpServletRequest request, HttpSession session, Member m, HttpServletResponse response) {
+			
+			mDAO.delMember(request, m);
+			mDAO.logout(request, response, session);
+			mDAO.loginCheck(request, session);
+			
+			request.setAttribute("contentPage", "member/member_success.jsp");
+			return "main";
+		}
+		
 	
 	
 	
