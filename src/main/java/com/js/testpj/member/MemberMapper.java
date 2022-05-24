@@ -19,6 +19,8 @@ public interface MemberMapper {
 
 	String checkingDelete(Member m);
 
+	Member[] selectAllMem(Member m);
+
 	
 	
 }

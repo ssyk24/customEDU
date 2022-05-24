@@ -11,7 +11,7 @@
 		custom_user_address, custom_user_auth, custom_user_del_yn,
 		custom_user_reg_date, custom_user_mod_date)
 		VALUES(NEXTVAL(custom_user_seq), #{custom_user_name}, #{custom_user_nick}, #{custom_user_email},
-		#{custom_user_pswd}, #{custom_user_birth}, #{custom_user_phone}, #{custom_user_address}, 'u', 'n',
+		#{custom_user_pswd}, #{custom_user_birth}, #{custom_user_phone}, #{custom_user_address}, '2', 'n',
 		now(), now())
 	</insert>
 	
@@ -66,6 +66,11 @@
 		set custom_user_del_yn = 'y'
 		where custom_user_seq = #{custom_user_seq}
 	</update>
-
+	
+	
+	<!-- 회원 정보 조회 -->
+	<select id="selectAllMem" resultType="com.js.testpj.member.Member">
+		select * FROM test1.custom_user
+	</select>
 
 </mapper>

@@ -151,6 +151,19 @@ public class customUserController {
 	
 	
 	
+		// 회원정보 관리(관리자 기능)
+		@RequestMapping(value = "/manage.go", method = RequestMethod.GET)
+		public String managePage(HttpServletRequest request, Member m) {
+			
+			mDAO.viewAllMember(request, m);
+			request.setAttribute("contentPage", "member/memInfo.jsp");
+			return "main";
+		}
+		
+		
+		
+		
+		
 	
 	
 	
@@ -160,14 +173,6 @@ public class customUserController {
 		return "member/forgetPswd";
 	}
 	
-	
-	
-	@RequestMapping(value = "/manage.go", method = RequestMethod.GET)
-	public String managePage(HttpServletRequest request) {
-		
-		request.setAttribute("contentPage", "member/memInfo.jsp");
-		return "main";
-	}
 	
 
 }

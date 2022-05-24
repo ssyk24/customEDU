@@ -1,6 +1,8 @@
 package com.js.testpj.member;
 
 
+import java.util.Iterator;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -105,6 +107,7 @@ public class MemberDAO {
 		session = request.getSession();
 		
 		Member dbMember = ss.getMapper(MemberMapper.class).loginUser(m);
+		String delCheck = ss.getMapper(MemberMapper.class).checkingDelete(m);
 		
 		// pw 암호화 기능
 		BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
@@ -115,18 +118,16 @@ public class MemberDAO {
 		
 		// 회원 정보가 있을 경우
 		if (dbMember != null) {
-			// 암호화된 패스워드 복원
+			////////////// 암호화된 패스워드 복원/////////////////////////////////
 			if(pwEncoder.matches(custom_user_pswd, dbMember.getCustom_user_pswd())) {
 				
-				// 자동 로그인 하지 않음
+				//////////// 자동 로그인 하지 않음//////////////////////
 				if (idRemember == null) {
-				System.out.println(idRemember); // null
-				System.out.println("자동 로그인 X");
-				
+				System.out.println(idRemember + "-자동 로그인 X");
+				/////////////////////////////////////////////////
 				} else {
-					// 자동 로그인 체크
-					System.out.println(idRemember); // on
-					System.out.println("자동 로그인 V");
+					//////////// 자동 로그인 체크 //////////////////////////
+					System.out.println(idRemember + "-자동 로그인 V");
 					
 					//loginCookie라는 키로 세션아이디를 담아 쿠키를 생성합니다.
 				    Cookie loginCookie = new Cookie("loginCookie", session.getId());
@@ -136,15 +137,28 @@ public class MemberDAO {
 				    
 				    //쿠키는 클라이언트에 보낼떄 응답객체에 담아서 보냅니다.
 				    response.addCookie(loginCookie);//response에 쿠키를담아 클라이언트에게 보냅니다.
+				 ///////////////////////////////////////////////////////
 				}
 				
+				if (delCheck.equals("n")) {
+				////////////////////////////////////////////////
 				session.setAttribute("loginMember", dbMember);
 				
 				System.out.println(dbMember.getCustom_user_email());
 				System.out.println("로그인 성공");
 				request.setAttribute("contentPage", "member/member_success.jsp");
 				request.setAttribute("result", "Login Success!");
-				
+				///////////////////////////////////////////////
+				} else {
+				//////////////////////////////////////////////
+					System.out.println("탈퇴된 회원");
+					request.setAttribute("contentPage", "member/login_failed.jsp");
+					request.setAttribute("result", "로그인 실패 <br><br> 이미 탈퇴된 회원입니다.");
+				//////////////////////////////////////////////
+					
+				}
+			
+			
 			} else {
 				System.out.println("로그인 실패(PW)");
 				request.setAttribute("contentPage", "member/login_failed.jsp");
@@ -265,6 +279,27 @@ public class MemberDAO {
 		} else {
 			System.out.println("탈퇴 실패");
 		}
+		
+	}
+
+
+	public void viewAllMember(HttpServletRequest request, Member m) {
+
+		Member[] dbMember = ss.getMapper(MemberMapper.class).selectAllMem(m);
+		
+		for (Member member : dbMember) {
+			
+			if (member.getCustom_user_auth().equals("1")) {
+				member.setCustom_user_auth("관리자");
+			} else {
+				member.setCustom_user_auth("사용자");
+			}
+			
+//			System.out.println(member.getCustom_user_auth());
+		}
+		
+		
+		request.setAttribute("membersInfo", dbMember);
 		
 	}
 

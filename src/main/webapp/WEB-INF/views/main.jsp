@@ -111,9 +111,9 @@
                         
                     	</c:when>
                     
-                    	<c:when test="${sessionScope.loginMember.custom_user_auth eq 'a'}">
+                    	<c:when test="${sessionScope.loginMember.custom_user_auth eq '1'}">
                     
-                        <h6 class="collapse-header">LOGIN SCREENS:</h6>
+                        <h6 class="collapse-header">LOGINED:</h6>
                         <a class="collapse-item" href="login.go">Login</a>
                         <a class="collapse-item" href="register.go">Register</a>
                         <a class="collapse-item" href="forgetPswd.go">Forgot Password</a>
@@ -127,7 +127,7 @@
                         
                     	</c:when>
                     
-                    	<c:when test="${sessionScope.loginMember.custom_user_auth eq 'u'}">
+                    	<c:when test="${sessionScope.loginMember.custom_user_auth eq '2'}">
                     
                         <h6 class="collapse-header">LOGINED</h6>
                         <a class="collapse-item" href="profile.go?custom_user_seq=${sessionScope.loginMember.custom_user_seq}">Profile</a>
