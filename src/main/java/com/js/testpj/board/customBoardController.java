@@ -17,21 +17,45 @@ public class customBoardController {
 	@Autowired
 	private MemberDAO mDAO;
 	
-//	@Autowired
-//	private BoardDAO bDAO;
-//	
-//	@Autowired
-//	private Board b;
+	@Autowired
+	private BoardDAO bDAO;
 	
 	
 	
 	
 	@RequestMapping(value = "/board.go", method = RequestMethod.GET)
-	public String boardPage(HttpServletRequest request, HttpSession session) {
+	public String boardPage(HttpServletRequest request, HttpSession session, Board b) {
 		
 		mDAO.loginCheck(request, session);
+		bDAO.showBoard(request, b);
 
 		request.setAttribute("contentPage", "board/board.jsp");
+		return "main";
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/writeBoard.go", method = RequestMethod.GET)
+	public String writePage(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		
+		request.setAttribute("contentPage", "board/boardInsert.jsp");
+		return "main";
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/writeBoard.do", method = RequestMethod.POST)
+	public String writeOnBoard(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		
+		bDAO.insertBoard(request, b);
+		
+		request.setAttribute("contentPage", "board/boardInsert.jsp");
 		return "main";
 	}
 	
@@ -44,9 +68,11 @@ public class customBoardController {
 	
 	
 	@RequestMapping(value = "/qna.go", method = RequestMethod.GET)
-	public String qnaPage(HttpServletRequest request) {
+	public String qnaPage(HttpServletRequest request, HttpSession session) {
 		
-		request.setAttribute("contentPage", "qna.jsp");
+		mDAO.loginCheck(request, session);
+		
+		request.setAttribute("contentPage", "board/qna.jsp");
 		return "main";
 	}
 	

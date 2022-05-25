@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.js.tsetpj.board.BoardMapper">
+<mapper namespace="com.js.testpj.board.BoardMapper">
+
+	<select id="showAllBoard" resultType="com.js.testpj.board.Board">
+		select * from test1.general_board where board_del_yn = "n"
+	</select>
 
 
-
+	<insert id="saveBoard" parameterType="com.js.testpj.board.Board">
+		insert into test1.general_board
+		(board_seq, board_title, board_text, board_writer, board_reg_date, board_mod_date, board_img_path, board_del_yn)
+		VALUES(NEXTVAL(board_seq), #{board_title}', #{board_text}, #{board_writer}, now(), now(), #{board_img_path}, 'n')
+	</insert>	
 
 </mapper>
