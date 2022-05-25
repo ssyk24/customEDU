@@ -30,6 +30,12 @@ public class BoardDAO {
 		
 	}
 
+	public void boardDetail(HttpServletRequest request, Board b) {
+
+		
+	
+	}
+
 	
 	
 	

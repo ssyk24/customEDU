@@ -70,8 +70,8 @@ function goWritePage() {
                                              <input class="form-check-input" type="checkbox" id="inputCheck" style="width: 50px;"">
  											</td>
                                             <td>${b.board_seq}</td>
-                                            <td>${b.board_writer}</td>
-                                            <td>${b.board_title}</td>
+                                            <td> ${b.board_writer}</td>
+                                            <td> <a href="board.detail?board_seq=${b.board_seq}"> ${b.board_title} </a> </td>
                                             <td>${b.board_text}</td>
                                             <td> <fmt:formatDate dateStyle="long" value="${b.board_mod_date}"/> </td>
                                         </tr>

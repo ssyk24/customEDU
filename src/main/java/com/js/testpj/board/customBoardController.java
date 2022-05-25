@@ -35,6 +35,18 @@ public class customBoardController {
 	
 	
 	
+	@RequestMapping(value = "/board.detail", method = RequestMethod.GET)
+	public String detailBoardPage(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		bDAO.boardDetail(request, b);
+		
+		request.setAttribute("contentPage", "board/board.jsp");
+		return "main";
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "/writeBoard.go", method = RequestMethod.GET)
 	public String writePage(HttpServletRequest request, HttpSession session, Board b) {
