@@ -7,11 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script type="text/javascript">
-
-
-</script>
-
 </head>
 <body>
 
@@ -25,49 +20,48 @@
                         </div>
                         <div class="card-body">
                         
-                        	<form action="writeBoard.do" method="post" enctype="multipart/form-data">
+                        	<form action="modifyBoard.do" method="post" enctype="multipart/form-data">
+                    		<input type="hidden" id="boardNumber" name="board_seq" value="${param.board_seq}">
                     		
                             <div class="table-responsive">
                             
-                            	<table class="table table-bordered border border-light" id="dataTable" width="100%" cellspacing="0">
+                            	<table class="table table-bordered border border-dark" id="dataTable" width="100%" cellspacing="0">
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">게시판 타입</td>
                             			<td width="75%">자유 게시판</td>
                             		</tr>
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">작성자</td>
-                            			<td width="75%">
-                            			 	${sessionScope.loginMember.custom_user_nick}
-                            			 	<input name="board_writer" type="hidden" value="${sessionScope.loginMember.custom_user_nick}">
-                            			</td>
+                            			<td width="75%"> ${boardDetail.board_writer} </td>
                             		</tr>
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">제목</td>
-                            			<td width="75%"> <input name="board_title" style="width: 70%;" required="required"> </td>
+                            			<td width="75%"> <input name="board_title" style="width: 70%;" required="required" value="${boardDetail.board_title}"> </td>
                             		</tr>
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">내용</td>
-                            			<td width="75%"> 
-                            			<textarea name="board_text" class="form border border-dark" placeholder="게시글의 내용을 입력해주세요."
-                            			 id="" style="height: 280px; width: 80%; resize: none; border-radius: 3px;" required="required"></textarea>
-										  </td>
+                            			<td width="75%">
+                            			 <textarea name="board_text" class="form border border-dark" style="height: 280px; width: 80%; resize: none; border-radius: 3px;" 
+                            			 required="required">${boardDetail.board_text}</textarea>
+                            			</td>
                             		</tr>
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">파일</td>
-                            			<td width="75%">
-                            			 <input id="select_file" name="board_img_path" type="file" class="border border-dark" style="border-radius: 3px;">
-                            			 <!-- <button id="preSave_file" type="button" class="btn btn-dark" onclick="">사진 저장</button>
-                            			 <span id="show_file" ></span> -->
-                            			</td>
+                            				<td width="75%"> 
+                            			<c:if test="${boardDetail.board_img_path != null}">
+                            				<img src="resources/board_img/${boardDetail.board_img_path}" style="max-width: 800px;"> <br>
+                            				${boardDetail.board_img_path} <br> <br>
+                            			</c:if>
+                            				<input id="modify_file" name="board_img_path" type="file" class="border border-dark" style="border-radius: 3px;">
+                            				 </td>
                             		</tr>
                             	</table>
                             	
+                           	  <c:if test="${sessionScope.loginMember.custom_user_nick eq boardDetail.board_writer || sessionScope.loginMember.custom_user_nick eq 'adminEdu'}">
                             	<div align="right">
-                           		 <button type="button" class="btn btn-primary" onclick="return history.back();">목록으로</button>
-                           		 <c:if test="${sessionScope.loginMember != null}">
-                           		 <button class="btn btn-primary" onclick="return confirm('저장하시겠습니까?');">글쓰기</button>
-                           		 </c:if>
+                           		 	<button class="btn btn-primary">수정하기</button>
                             	</div>
+                           	  </c:if> 
                             
                             </div>
                             

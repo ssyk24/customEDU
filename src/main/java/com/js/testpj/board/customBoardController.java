@@ -41,7 +41,7 @@ public class customBoardController {
 		mDAO.loginCheck(request, session);
 		bDAO.boardDetail(request, b);
 		
-		request.setAttribute("contentPage", "board/board.jsp");
+		request.setAttribute("contentPage", "board/boardDetail.jsp");
 		return "main";
 	}
 	
@@ -66,12 +66,53 @@ public class customBoardController {
 		mDAO.loginCheck(request, session);
 		
 		bDAO.insertBoard(request, b);
+		bDAO.showBoard(request, b);
 		
-		request.setAttribute("contentPage", "board/boardInsert.jsp");
+		request.setAttribute("contentPage", "board/board_go.jsp");
 		return "main";
 	}
 	
 	
+	
+	@RequestMapping(value = "/deleteBoard.do", method = RequestMethod.GET)
+	public String deleteBoard(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		
+		bDAO.deleteBoard(request, b);
+		bDAO.showBoard(request, b);
+		
+		request.setAttribute("contentPage", "board/board_go.jsp");
+		return "main";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/modifyBoard.go", method = RequestMethod.GET)
+	public String modifyPage(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		bDAO.boardDetail(request, b);
+		
+		request.setAttribute("contentPage", "board/boardDetailModi.jsp");
+		return "main";
+	}
+	
+
+	
+	@RequestMapping(value = "/modifyBoard.do", method = RequestMethod.POST)
+	public String modifyContentOnBoard(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		
+		bDAO.modifyBoard(request, b);
+		bDAO.boardDetail(request, b);
+		
+		request.setAttribute("contentPage", "board/boardDetail.jsp");
+		return "main";
+	}
 	
 	
 	

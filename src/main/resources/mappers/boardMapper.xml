@@ -10,7 +10,26 @@
 	<insert id="saveBoard" parameterType="com.js.testpj.board.Board">
 		insert into test1.general_board
 		(board_seq, board_title, board_text, board_writer, board_reg_date, board_mod_date, board_img_path, board_del_yn)
-		VALUES(NEXTVAL(board_seq), #{board_title}', #{board_text}, #{board_writer}, now(), now(), #{board_img_path}, 'n')
+		VALUES(NEXTVAL(board_seq), #{board_title}, #{board_text}, #{board_writer}, now(), now(), #{board_img_path}, 'n')
 	</insert>	
 
+
+	<select id="showDetail" resultType="com.js.testpj.board.Board">
+		select * from test1.general_board where board_seq = #{board_seq}
+	</select>
+	
+	
+	<update id="deletContentOnBoard" parameterType="com.js.testpj.board.Board">
+		update test1.general_board
+		set board_del_yn = 'y', board_mod_date = now()
+		where board_seq  = #{board_seq}
+	</update>
+	
+	<update id="modiBoard" parameterType="com.js.testpj.board.Board">
+		update test1.general_board
+		set board_title = #{board_title}, board_text = #{board_text}, board_img_path = #{board_img_path}, board_mod_date = now()
+		where  board_seq  = #{board_seq}
+	</update>
+	
+	
 </mapper>

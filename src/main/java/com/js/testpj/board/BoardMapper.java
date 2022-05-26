@@ -6,4 +6,10 @@ public interface BoardMapper {
 
 	int saveBoard(Board b);
 
+	Board showDetail(Board b);
+
+	int deletContentOnBoard(Board b);
+
+	int modiBoard(Board b);
+
 }
