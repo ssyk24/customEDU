@@ -58,7 +58,7 @@
                                             <td style="text-align: center;">  
                                              <input class="form-check-input" type="checkbox" id="inputCheck" style="width: 50px;"">
  											</td>
-                                            <td> ${fn:length(boardList) + status.index - 4} </td>
+                                            <td> ${fn:length(boardList) + status.index - (fn:length(boardList) - 1)} </td>
                                             <td> ${b.board_writer}</td>
                                             <td> <a href="board.detail?board_seq=${b.board_seq}"> ${b.board_title} </a> </td>
                                             <td>${b.board_text}</td>
