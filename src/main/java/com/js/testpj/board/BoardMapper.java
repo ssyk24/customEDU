@@ -12,4 +12,6 @@ public interface BoardMapper {
 
 	int modiBoard(Board b);
 
+	int deletSelected(Board b);
+
 }

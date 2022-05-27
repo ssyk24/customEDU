@@ -106,7 +106,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">OTHER PAGES:</h6>
                         <a class="collapse-item" href="board.go">Board</a>
-                        <a class="collapse-item" href="qna.go">Q&A</a>
+                        <a class="collapse-item" href="#">Q&A</a>
                         <div class="collapse-divider"></div>
                         
                     	</c:when>
@@ -120,7 +120,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">OTHER PAGES:</h6>
                         <a class="collapse-item" href="board.go">Board</a>
-                        <a class="collapse-item" href="qna.go">Q&A</a>
+                        <a class="collapse-item" href="#">Q&A</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">ADMIN PAGES:</h6>
                         <a class="collapse-item" href="manage.go">Member managment</a>

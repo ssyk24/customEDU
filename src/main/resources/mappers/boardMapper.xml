@@ -32,4 +32,11 @@
 	</update>
 	
 	
+	<update id="deletSelected" parameterType="com.js.testpj.board.Board">
+		update test1.general_board
+		set board_del_yn = 'y', board_mod_date = now()
+		where board_seq  = #{board_seq}
+	</update>
+	
+	
 </mapper>

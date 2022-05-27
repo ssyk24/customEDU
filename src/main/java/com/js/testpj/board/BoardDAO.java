@@ -1,6 +1,10 @@
 package com.js.testpj.board;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,15 +83,34 @@ public class BoardDAO {
 	
 	}
 
-	public void deleteBoard(HttpServletRequest request, Board b) {
+	public void deleteAll(HttpServletRequest request, Board b) {
 
+//		for (iterable_type iterable_element : iterable) {
+//			
+//		}
+		
 			b.setBoard_seq(request.getParameter("board_seq"));
 			
-			if (ss.getMapper(BoardMapper.class).deletContentOnBoard(b) == 1) {
+			if (ss.getMapper(BoardMapper.class).deletSelected(b) >= 1) {
 				System.err.println("삭제 성공");
 			} else {
 				System.err.println("삭제 실패");
 			}
+		
+	}
+	
+	
+	
+	
+	public void deleteBoard(HttpServletRequest request, Board b) {
+		
+		b.setBoard_seq(request.getParameter("board_seq"));
+		
+		if (ss.getMapper(BoardMapper.class).deletContentOnBoard(b) == 1) {
+			System.err.println("삭제 성공");
+		} else {
+			System.err.println("삭제 실패");
+		}
 		
 	}
 

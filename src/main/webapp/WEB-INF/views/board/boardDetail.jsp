@@ -62,7 +62,7 @@ function letsModify() {
                             		</tr>
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">내용</td>
-                            			<td width="75%"> ${boardDetail.board_text} </td>
+                            			<td width="75%"> <pre><c:out value="${boardDetail.board_text}" /> </pre> </td>
                             		</tr>
                             		<tr>
                             			<td width="20%" style="background-color: #f1f1f1;">파일</td>

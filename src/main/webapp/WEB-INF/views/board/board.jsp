@@ -9,6 +9,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<script type="text/javascript">
+
+/* $(function() {
+	
+	var checked[] = document.getElementById('inputCheckbox').value;
+	
+	$('#inputCheckbox').click(function() {
+		console.log(checked[]);
+	});
+	
+	
+}) // ready
+ */
+
+</script>
+
 </head>
 <body>
 
@@ -22,11 +38,13 @@
                      
                      <input type="hidden" id="userNumber" name="custom_user_seq" value="${sessionScope.loginMember.custom_user_seq}">
                      
+                    <form action="select.delete" method="get">
+                      
 					<c:choose>
 					<c:when test="${sessionScope.loginMember.custom_user_auth == '1'}">
 						<div style="text-align: right;">
-							<button class="btn btn-primary"  onclick="location.href = 'writeBoard.go';">글쓰기</button>
-							<button type="button" class="btn btn-primary" onclick="">삭제</button>
+							<button type="button" class="btn btn-primary"  onclick="location.href = 'writeBoard.go';">글쓰기</button>
+							<button class="btn btn-primary" onclick="">삭제</button>
 						</div>
 					</c:when>
 					
@@ -40,10 +58,14 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                            
+                            
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                          <c:if test="${sessionScope.loginMember.custom_user_auth == '1'}">
                                             <th> </th>
+                                          </c:if>
                                             <th>글 번호</th>
                                             <th>작성자</th>
                                             <th>제목</th>
@@ -51,13 +73,18 @@
                                             <th> 마지막 수정일</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                     
                                     <c:forEach items="${boardList}" var="b" varStatus="status">
                                          <tr>
+                                         
+                                         <c:if test="${sessionScope.loginMember.custom_user_auth == '1'}">
                                             <td style="text-align: center;">  
-                                             <input class="form-check-input" type="checkbox" id="inputCheck" style="width: 50px;"">
+                                             <input name="board_seq" value="${b.board_seq}" type="checkbox" id="inputCheckbox" style="width: 50px;">
  											</td>
+                                         </c:if>
+                                         
                                             <td> ${fn:length(boardList) + status.index - (fn:length(boardList) - 1)} </td>
                                             <td> ${b.board_writer}</td>
                                             <td> <a href="board.detail?board_seq=${b.board_seq}"> ${b.board_title} </a> </td>
@@ -68,8 +95,12 @@
                                     
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
+                        
+                        </form>
+                        
                     </div>
                     
 

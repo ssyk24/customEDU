@@ -85,6 +85,22 @@ public class customBoardController {
 		request.setAttribute("contentPage", "board/board_go.jsp");
 		return "main";
 	}
+
+	
+	
+	
+	
+	@RequestMapping(value = "/select.delete", method = RequestMethod.GET)
+	public String deleteCheck(HttpServletRequest request, HttpSession session, Board b) {
+		
+		mDAO.loginCheck(request, session);
+		
+		bDAO.deleteAll(request, b);
+		bDAO.showBoard(request, b);
+		
+		request.setAttribute("contentPage", "board/board_go.jsp");
+		return "main";
+	}
 	
 	
 	
@@ -115,19 +131,6 @@ public class customBoardController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/qna.go", method = RequestMethod.GET)
-	public String qnaPage(HttpServletRequest request, HttpSession session) {
-		
-		mDAO.loginCheck(request, session);
-		
-		request.setAttribute("contentPage", "board/qna.jsp");
-		return "main";
-	}
 	
 
 }
