@@ -2,6 +2,7 @@ package com.js.testpj.board;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -84,18 +85,25 @@ public class BoardDAO {
 	}
 
 	public void deleteAll(HttpServletRequest request, Board b) {
-
-//		for (iterable_type iterable_element : iterable) {
-//			
-//		}
 		
-			b.setBoard_seq(request.getParameter("board_seq"));
+		
+		String[] params = request.getParameterValues("board_seq");
+		
+		System.out.println("선택 게시글 수 : " + params.length);
+		
+		for (int i = 0; i < params.length; i++) {
 			
-			if (ss.getMapper(BoardMapper.class).deletSelected(b) >= 1) {
+
+			b.setBoard_seq(params[i]);
+//			System.out.println(b.getBoard_seq());
+			
+			if (ss.getMapper(BoardMapper.class).deletSelected(b) == 1) {
 				System.err.println("삭제 성공");
 			} else {
 				System.err.println("삭제 실패");
 			}
+
+		}
 		
 	}
 	

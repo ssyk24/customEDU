@@ -1,5 +1,7 @@
 package com.js.testpj.board;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -91,7 +93,7 @@ public class customBoardController {
 	
 	
 	@RequestMapping(value = "/select.delete", method = RequestMethod.GET)
-	public String deleteCheck(HttpServletRequest request, HttpSession session, Board b) {
+	public String deleteChecked(HttpServletRequest request, HttpSession session, Board b) {
 		
 		mDAO.loginCheck(request, session);
 		

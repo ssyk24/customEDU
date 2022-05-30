@@ -10,23 +10,14 @@
 <title>Insert title here</title>
 
 <script type="text/javascript">
-
-/* $(function() {
-	
-	var checked[] = document.getElementById('inputCheckbox').value;
-	
-	$('#inputCheckbox').click(function() {
-		console.log(checked[]);
-	});
-	
-	
-}) // ready
- */
+	 
 
 </script>
 
 </head>
 <body>
+
+			<form action="select.delete" method="get">
 
                 <div class="container-fluid">
 
@@ -38,13 +29,11 @@
                      
                      <input type="hidden" id="userNumber" name="custom_user_seq" value="${sessionScope.loginMember.custom_user_seq}">
                      
-                    <form action="select.delete" method="get">
-                      
 					<c:choose>
 					<c:when test="${sessionScope.loginMember.custom_user_auth == '1'}">
 						<div style="text-align: right;">
 							<button type="button" class="btn btn-primary"  onclick="location.href = 'writeBoard.go';">글쓰기</button>
-							<button class="btn btn-primary" onclick="">삭제</button>
+							<button class="btn btn-primary" onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</button>
 						</div>
 					</c:when>
 					
@@ -81,7 +70,8 @@
                                          
                                          <c:if test="${sessionScope.loginMember.custom_user_auth == '1'}">
                                             <td style="text-align: center;">  
-                                             <input name="board_seq" value="${b.board_seq}" type="checkbox" id="inputCheckbox" style="width: 50px;">
+                                             <input name="board_seq" value="${b.board_seq}" type="checkbox" id="inputCheckbox"
+                                              style="width: 50px;" onclick="getCheckedValue()">
  											</td>
                                          </c:if>
                                          
@@ -131,6 +121,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+</form>
 
 </body>
 </html>
